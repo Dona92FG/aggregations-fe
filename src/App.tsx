@@ -2,22 +2,33 @@ import { Fragment, useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
-import {
-  Button,
-  CircularProgress,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Button, CircularProgress, Grid, Typography } from "@mui/material";
 import { Work } from "./Models/Work";
-import { WorksTable } from "./WorksTable/WorksTable";
+import { WorksTable } from "./Tables/WorksTable";
+import { AggregationButtons } from "./Buttons/AggregationButtons";
+import { WorkAggregatedByProject } from "./Models/Aggregations/WorkAggregatedByProject";
+import { WorkAggregatedByProjectAndEmployee } from "./Models/Aggregations/WorkAggregatedByProjectAndEmployees";
 
 function App() {
-  const [works, setWorks] = useState<Work[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-
+  const [works, setWorks] = useState<Work[]>([]);
+  const [worksAggregatedByProject, setWorksAggregatedByProject] = useState<
+    WorkAggregatedByProject[]
+  >([]);
+  const [
+    worksAggregatedByProjectsAndEmployees,
+    setWorksAggregatedByProjectsAndEmployees,
+  ] = useState<WorkAggregatedByProjectAndEmployee[]>([]);
+  const [
+    worksAggregatedByEmployeesAndProjects,
+    setWorksAggregatedByEmployeesAndProjects,
+  ] = useState<WorkAggregatedByProjectAndEmployee[]>([]);
   const findAllEmployeeWorks = () => {
     axios.get<Work[]>("http://localhost:3001/works").then((response) => {
       setWorks(response.data);
+      setWorksAggregatedByProject([]);
+      setWorksAggregatedByProjectsAndEmployees([]);
+      setWorksAggregatedByEmployeesAndProjects([]);
       setLoading(false);
     });
   };
@@ -50,10 +61,26 @@ function App() {
             </Button>
           </Grid>
         </Grid>
-        {loading && works.length === 0 ? (
+        {loading ? (
           <CircularProgress />
         ) : (
-          <WorksTable works={works}/>
+          <>
+            {works.length > 0 && <WorksTable works={works} />}
+            {worksAggregatedByProject.length > 0 && <>BRAVO 0</>}
+            {worksAggregatedByProjectsAndEmployees.length > 0 && <>BRAVO 1</>}
+            {worksAggregatedByEmployeesAndProjects.length > 0 && <>BRAVO 2</>}
+            <AggregationButtons
+              works={works}
+              setWorks={setWorks}
+              setWorksAggregatedByEmployeesAndProjects={
+                setWorksAggregatedByEmployeesAndProjects
+              }
+              setWorksAggregatedByProject={setWorksAggregatedByProject}
+              setWorksAggregatedByProjectsAndEmployees={
+                setWorksAggregatedByProjectsAndEmployees
+              }
+            />
+          </>
         )}
       </div>
     </Fragment>

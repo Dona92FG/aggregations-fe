@@ -10,7 +10,6 @@ import {
   TableCell,
   TableBody,
 } from "@mui/material";
-import { AggregationButtons } from "../AggregationButtons/AggregationButtons";
 
 interface WorksTableProps {
   works: Work[];
@@ -55,7 +54,6 @@ export const WorksTable: FC<WorksTableProps> = (props) => {
             </Table>
           </TableContainer>
         </Grid>
-        <AggregationButtons />
       </Grid>
     </>
   );
