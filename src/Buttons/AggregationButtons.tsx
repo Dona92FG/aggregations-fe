@@ -1,6 +1,5 @@
 import { Grid, Button } from "@mui/material";
 import { FC } from "react";
-import { Work } from "../Models/Work";
 import axios from "axios";
 import { WorkAggregatedByProject } from "../Models/Aggregations/WorkAggregatedByProject";
 import { WorkAggregatedByProjectAndEmployee } from "../Models/Aggregations/WorkAggregatedByProjectAndEmployees";

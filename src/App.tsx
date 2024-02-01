@@ -99,7 +99,7 @@ function App() {
               }}
               variant="contained"
             >
-              Refresh
+              Refresh/Clear
             </Button>
           </Grid>
         </Grid>

@@ -21,7 +21,7 @@ export const WorksByEmployeesAndProjectTable: FC<
   const { worksByEmployeesAndProject } = props;
   return (
     <>
-      <Grid container alignItems="center">
+      <Grid container style={{padding: '0px 30px'}} alignItems="center">
         <Grid item xs={12}>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
