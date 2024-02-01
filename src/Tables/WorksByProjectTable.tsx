@@ -17,7 +17,6 @@ interface WorksByProjectTableProps {
 
 export const WorksByProjectTable: FC<WorksByProjectTableProps> = (props) => {
   const { worksByProject } = props;
-  console.log("worksByProject: ", worksByProject);
   return (
     <>
       <Grid container alignItems="center">

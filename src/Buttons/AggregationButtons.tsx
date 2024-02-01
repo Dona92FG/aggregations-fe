@@ -8,7 +8,6 @@ import { WorkAggregatedByProjectAndEmployee } from "../Models/Aggregations/WorkA
 interface AggregationButtonsProps {
   projectIds: number[];
   employeeIds: number[];
-  setWorks: React.Dispatch<React.SetStateAction<Work[]>>;
   setWorksAggregatedByProject: React.Dispatch<
     React.SetStateAction<WorkAggregatedByProject[]>
   >;
@@ -24,7 +23,6 @@ export const AggregationButtons: FC<AggregationButtonsProps> = (props) => {
   const {
     projectIds,
     employeeIds,
-    setWorks,
     setWorksAggregatedByProject,
     setWorksAggregatedByProjectsAndEmployees,
     setWorksAggregatedByEmployeesAndProjects,
@@ -40,11 +38,9 @@ export const AggregationButtons: FC<AggregationButtonsProps> = (props) => {
         }
       )
       .then((response) => {
-        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: ", projectIds);
         setWorksAggregatedByProject(response.data);
         setWorksAggregatedByProjectsAndEmployees([]);
         setWorksAggregatedByEmployeesAndProjects([]);
-        setWorks([]);
       });
   };
 
@@ -65,7 +61,6 @@ export const AggregationButtons: FC<AggregationButtonsProps> = (props) => {
         setWorksAggregatedByProject([]);
         setWorksAggregatedByProjectsAndEmployees(response.data);
         setWorksAggregatedByEmployeesAndProjects([]);
-        setWorks([]);
       });
   };
 
@@ -86,7 +81,6 @@ export const AggregationButtons: FC<AggregationButtonsProps> = (props) => {
         setWorksAggregatedByProject([]);
         setWorksAggregatedByProjectsAndEmployees([]);
         setWorksAggregatedByEmployeesAndProjects(response.data);
-        setWorks([]);
       });
   };
 

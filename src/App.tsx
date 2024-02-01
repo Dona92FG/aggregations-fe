@@ -63,6 +63,18 @@ function App() {
     });
   }, [works]);
 
+  const mainPageEnabled = useMemo(() => {
+    return (
+      worksAggregatedByProject.length === 0 &&
+      worksAggregatedByProjectsAndEmployees.length === 0 &&
+      worksAggregatedByEmployeesAndProjects.length === 0
+    );
+  }, [
+    worksAggregatedByProject,
+    worksAggregatedByProjectsAndEmployees,
+    worksAggregatedByEmployeesAndProjects,
+  ]);
+
   useEffect(() => {
     setProjectIds(uniqueProjectIds);
     setEmployeeIds(uniqueEmployeeIds);
@@ -92,7 +104,7 @@ function App() {
           </Grid>
         </Grid>
         <>
-          {works.length > 0 && <WorksTable works={works} />}
+          {mainPageEnabled && <WorksTable works={works} />}
           {worksAggregatedByProject.length > 0 && (
             <WorksByProjectTable worksByProject={worksAggregatedByProject} />
           )}
@@ -109,7 +121,6 @@ function App() {
           <AggregationButtons
             employeeIds={employeeIds}
             projectIds={projectIds}
-            setWorks={setWorks}
             setWorksAggregatedByEmployeesAndProjects={
               setWorksAggregatedByEmployeesAndProjects
             }
