@@ -6,7 +6,8 @@ import { WorkAggregatedByProject } from "../Models/Aggregations/WorkAggregatedBy
 import { WorkAggregatedByProjectAndEmployee } from "../Models/Aggregations/WorkAggregatedByProjectAndEmployees";
 
 interface AggregationButtonsProps {
-  works: Work[];
+  projectIds: number[];
+  employeeIds: number[];
   setWorks: React.Dispatch<React.SetStateAction<Work[]>>;
   setWorksAggregatedByProject: React.Dispatch<
     React.SetStateAction<WorkAggregatedByProject[]>
@@ -21,7 +22,8 @@ interface AggregationButtonsProps {
 
 export const AggregationButtons: FC<AggregationButtonsProps> = (props) => {
   const {
-    works,
+    projectIds,
+    employeeIds,
     setWorks,
     setWorksAggregatedByProject,
     setWorksAggregatedByProjectsAndEmployees,
@@ -29,11 +31,7 @@ export const AggregationButtons: FC<AggregationButtonsProps> = (props) => {
   } = props;
 
   const findWorksAggregatedByProjects = () => {
-    const projectIds: number[] = works.map((work) => work.project.id);
-    const uniqueProjectIds: number[] = projectIds.filter((element, index) => {
-      return projectIds.indexOf(element) === index;
-    });
-    const projectIdsQueryString: string = uniqueProjectIds.join(",");
+    const projectIdsQueryString: string = projectIds.join(",");
     axios
       .get<WorkAggregatedByProject[]>(
         "http://localhost:3001/works/byProjects",
@@ -42,6 +40,7 @@ export const AggregationButtons: FC<AggregationButtonsProps> = (props) => {
         }
       )
       .then((response) => {
+        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: ", projectIds);
         setWorksAggregatedByProject(response.data);
         setWorksAggregatedByProjectsAndEmployees([]);
         setWorksAggregatedByEmployeesAndProjects([]);
@@ -50,16 +49,8 @@ export const AggregationButtons: FC<AggregationButtonsProps> = (props) => {
   };
 
   const findWorksAggregatedByProjectsAndEmployees = () => {
-    const projectIds: number[] = works.map((work) => work.project.id);
-    const employeeIds: number[] = works.map((work) => work.employee.id);
-    const uniqueProjectIds: number[] = projectIds.filter((element, index) => {
-      return projectIds.indexOf(element) === index;
-    });
-    const uniqueEmployeeIds: number[] = employeeIds.filter((element, index) => {
-      return employeeIds.indexOf(element) === index;
-    });
-    const projectIdsQueryString: string = uniqueProjectIds.join(",");
-    const employeeIdsQueryString: string = uniqueEmployeeIds.join(",");
+    const projectIdsQueryString: string = projectIds.join(",");
+    const employeeIdsQueryString: string = employeeIds.join(",");
     axios
       .get<WorkAggregatedByProjectAndEmployee[]>(
         "http://localhost:3001/works/byProjectsAndEmployees",
@@ -79,16 +70,8 @@ export const AggregationButtons: FC<AggregationButtonsProps> = (props) => {
   };
 
   const findWorksAggregatedByEmployeesAndProjects = () => {
-    const projectIds: number[] = works.map((work) => work.project.id);
-    const employeeIds: number[] = works.map((work) => work.employee.id);
-    const uniqueProjectIds: number[] = projectIds.filter((element, index) => {
-      return projectIds.indexOf(element) === index;
-    });
-    const uniqueEmployeeIds: number[] = employeeIds.filter((element, index) => {
-      return employeeIds.indexOf(element) === index;
-    });
-    const projectIdsQueryString: string = uniqueProjectIds.join(",");
-    const employeeIdsQueryString: string = uniqueEmployeeIds.join(",");
+    const projectIdsQueryString: string = projectIds.join(",");
+    const employeeIdsQueryString: string = employeeIds.join(",");
     axios
       .get<WorkAggregatedByProjectAndEmployee[]>(
         "http://localhost:3001/works/byEmployeesAndProjects",
